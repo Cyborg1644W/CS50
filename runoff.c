@@ -1,5 +1,7 @@
 #include <cs50.h>
+#include <ctype.h>
 #include <stdio.h>
+#include <string.h>
 
 // Max voters and candidates
 #define MAX_VOTERS 100
@@ -113,7 +115,7 @@ int main(int argc, string argv[])
 
         // Eliminate anyone with minimum number of votes
         eliminate(min);
-    
+
         // Reset vote counts back to zero
         for (int i = 0; i < candidate_count; i++)
         {
@@ -126,7 +128,24 @@ int main(int argc, string argv[])
 // Record preference if vote is valid
 bool vote(int voter, int rank, string name)
 {
-
+    bool status;
+    for(int i = 0; i < voter_count; i++)
+    {
+        status = true;
+        for(int j = 0; len = strlen(candidates[i].name); j < len; j++)
+        {
+            if (tolower(name[j]) != tolower(candidates[i].name[j]))
+            {
+                status = false;
+                break;
+            }
+        }
+        if (status)
+        {
+            candidates[i].votes++;
+            return true;
+        }
+    }
     return false;
 }
 
