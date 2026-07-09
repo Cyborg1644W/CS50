@@ -129,10 +129,17 @@ int main(int argc, string argv[])
 bool vote(int voter, int rank, string name)
 {
     bool status;
-    for(int i = 0; i < voter_count; i++)
+    for(int i = 0; i < candidate_count; i++)
     {
         status = true;
-        for(int j = 0; len = strlen(candidates[i].name); j < len; j++)
+        int len = strlen(candidates[i].name);
+
+        if (len != strlen(name))
+        {
+            status = false;
+            continue;
+        }
+        for(int j = 0; j < len; j++)
         {
             if (tolower(name[j]) != tolower(candidates[i].name[j]))
             {
@@ -142,7 +149,7 @@ bool vote(int voter, int rank, string name)
         }
         if (status)
         {
-            candidates[i].votes++;
+            preferences[voter][rank] = i;
             return true;
         }
     }
